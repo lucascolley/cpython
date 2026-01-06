@@ -10,6 +10,8 @@ source:
   - path: ../../..
 
 build:
+  python:
+    site_packages_path: "lib/python3.15t/site-packages"
   files:
     exclude:
       - "*.o"
