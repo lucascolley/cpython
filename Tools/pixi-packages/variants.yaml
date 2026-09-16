@@ -8,8 +8,8 @@ openssl:
 c_compiler:
   - clang
 c_compiler_version:
-  - 21
+  - 22
 cxx_compiler:
   - clangxx
 cxx_compiler_version:
-  - 21
+  - 22
