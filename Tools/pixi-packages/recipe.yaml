@@ -2,6 +2,7 @@ context:
   freethreading_tag: ${{ "t" if "freethreading" in variant else "" }}
   abi_prefix: ${{ (variant | split("_"))[0] + "_" if "san" in variant else "" }}
   abi_tag: ${{ abi_prefix }}cp${{ (version | split('.'))[:2] | join('') }}${{ freethreading_tag }}
+  c_compiler_version: ${{ c_compiler_version }}
 
 recipe:
   name: python
@@ -72,9 +73,9 @@ outputs:
           - libuuid
       - libmpdec-devel
       - expat
-      - if: osx and "san" in variant
+      - if: '"san" in variant'
         then:
-          - libcompiler-rt
+          - libcompiler-rt ${{ c_compiler_version }}.*
 
     ignore_run_exports:
       from_package:
@@ -86,6 +87,9 @@ outputs:
         - python
       weak:
         - python_abi ${{ version }}.* *_${{ abi_tag }}
+    
+    run_constraints:
+      - libcompiler-rt ${{ c_compiler_version }}.*
 
 about:
   homepage: https://www.python.org/
